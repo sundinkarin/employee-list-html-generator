@@ -1,3 +1,4 @@
+var fs = require('fs')
 const Manager=require("./lib/Manager")
 const Intern=require("./lib/Intern")
 const Engineer=require("./lib/Engineer")
@@ -59,6 +60,13 @@ function mainMenue(){
   }
   if (answers.mainMenu == "Add an engineer") {
     engineerQuestions()
+  }
+  if (answers.mainMenu == "Finish with the list.") {
+    var HtmlString=createHtmlPage()
+    fs.writeFile('./dist/index.html', HtmlString, function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+    });
   }
   })
 }
@@ -130,4 +138,23 @@ message: "What is the GitHub username?"
   mainMenue()
 })
 }
+
+function createHtmlPage(){
+  return `
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>hello world</div>
+
+</body>
+</html>
+  `
+}
+
 managerQuestions()
